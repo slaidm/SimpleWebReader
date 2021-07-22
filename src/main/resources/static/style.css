@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+head {
+	font-family: "comic-sans";
+	font-size: 24px;
+}
+
+body {
+	background-color: blue;
+}
+
+p {
+	margin-left: 20px;
+	font-family: "verdana";
+	font-size: 12px;
+}
