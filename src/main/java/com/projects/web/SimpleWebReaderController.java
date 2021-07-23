@@ -15,6 +15,12 @@ public class SimpleWebReaderController {
 	
   private List<Greeting> list = new ArrayList<>();
 
+  @RequestMapping("/")
+  public String welcome(Model model) {
+	  model.addAttribute("welcome");
+	  return "welcome";
+  }
+  
   @GetMapping("/greeting")
   public String greetingForm(Model model) {
     model.addAttribute("greeting", new Greeting());
@@ -34,9 +40,4 @@ public class SimpleWebReaderController {
 	  return "show";
   }
 
-//  @RequestMapping("/error")
-//  public String error(Model model) {
-//	  model.addAttribute("error", new Error());
-//	  return "error";
-//  }
 }
