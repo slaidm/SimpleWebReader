@@ -43,8 +43,8 @@ public class Book {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder("");
-		sb.append(sitemetadata.toString()+"\n");
-		sb.append(metadata.toString() + "\n");
+		sb.append("Site: "+sitemetadata.toString()+"\n");
+		sb.append("Metadata: "+metadata.toString() + "\n");
 		sb.append(title + "\n");
 		sb.append(author + "\n");
 		for(Chapter c : chapters) {

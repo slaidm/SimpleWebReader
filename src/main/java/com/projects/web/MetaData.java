@@ -5,6 +5,10 @@ public class MetaData {
 
 	private String data;
 	
+	public MetaData() {
+		this.data = "";
+	}
+	
 	public MetaData(String data) {
 		this.data = data;
 	}
@@ -18,7 +22,7 @@ public class MetaData {
 	}
 	
 	public String toString() {
-		return "Metadata:\n" + data;
+		return data;
 	}
 	
 }

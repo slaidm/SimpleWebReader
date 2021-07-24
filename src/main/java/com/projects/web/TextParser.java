@@ -2,20 +2,13 @@ package com.projects.web;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class TextParser {
 
 	public String parseStream(BufferedReader br) throws IOException {
-		//Ignore first bit, and include in separate object.
-		//Title
-		//Author
-		//MetaData
-		//Contents
-		//Chapters
-		//	Texts
-		//Out
 		Book b = new Book();
 		b.setSitemetadata(getSiteMetadata(br));
 		b.setMetadata(getMetaData(br));
@@ -29,23 +22,51 @@ public class TextParser {
 	
 	private List<Chapter> getChapters(BufferedReader br) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Chapter> chapters = new LinkedList<>();
+		return chapters;
 	}
 
-	//TODO
-	private String getTitle(BufferedReader br) {
-		return null;
+	private String getTitle(BufferedReader br) throws IOException {
+		String line = null;
+		StringBuilder sb = new StringBuilder("");
+		int lb = countLineBreaks(br);
+		if(lb == 6) {
+			for(int i = 0; i < lb; i++) {
+				line = br.readLine();
+			}
+			while((line = br.readLine())!= null && !line.equals("")) {
+				sb.append(line);
+			}
+		}
+		return sb.toString();
 	}
 
 
-	private MetaData getMetaData(BufferedReader br) {
-		// TODO Auto-generated method stub
-		return null;
+	private MetaData getMetaData(BufferedReader br) throws IOException {
+		StringBuilder sb = new StringBuilder("");
+		String line = null;
+		int lb = countLineBreaks(br);
+		if (lb == 4) {
+			for(int i = 0; i < lb; i++) {
+				line = br.readLine();
+			}
+			while((line = br.readLine()) != null) {
+				if(line.equals("")) {
+					if(countLineBreaks(br) > 3) {
+						break;
+					}
+				}
+				else {
+					sb.append(line);
+				}
+			}
+		}
+		return new MetaData(sb.toString());
 	}
 
 
 	private SiteMetaData getSiteMetadata(BufferedReader br) throws IOException {
-		StringBuffer siteInformation = new StringBuffer("");
+		StringBuilder siteInformation = new StringBuilder("");
 		String gutenbergSiteInformation = ".*\\Q***\\E.*";
 		Pattern p = Pattern.compile(gutenbergSiteInformation);
 		
@@ -57,9 +78,20 @@ public class TextParser {
 	}
 	
 	//TODO
-	private int countLineBreaks(BufferedReader br) {
-		String line = null;
-		return 0;
+	private int countLineBreaks(BufferedReader br){
+		int count = 1;
+		try {
+			br.mark(20);
+			String line = null;
+			while((line = br.readLine()) != null && line.equals("")) {
+				count++;
+			}		
+			br.reset();
+		} catch (IOException e) {
+			System.out.println("Failure in countLineBreaks");
+			e.printStackTrace();
+		} 
+		return count;
 	}
 	
 

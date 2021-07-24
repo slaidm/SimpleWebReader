@@ -24,15 +24,11 @@ public class TextReader {
 			URLConnection con = url.openConnection();
 			InputStream is = con.getInputStream();
 	        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-	        String line = null;
-	        int limit = 200;
-	        int i = 0; 
 	        
-	        // read each line and write to System.out
-	        while ((line = br.readLine()) != null && (i++) < limit) {
-	            System.out.println(line);
-	        }
+	        TextParser tp = new TextParser();
+	        String book = tp.parseStream(br);
+	        
+	        System.out.println(book);
 	        
 			br.close(); 
 			is.close();
