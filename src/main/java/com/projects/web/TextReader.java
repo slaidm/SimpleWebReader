@@ -26,7 +26,7 @@ public class TextReader {
 	        BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
 	        String line = null;
-	        int limit = 100;
+	        int limit = 200;
 	        int i = 0; 
 	        
 	        // read each line and write to System.out
@@ -44,9 +44,8 @@ public class TextReader {
 		return "\n\nAll Finished!";
 	}
 	
-	
 	public static void main(String[] args) {
-		String url = "https://www.gutenberg.org/cache/epub/8300/pg8300.txt";
+		String url = "https://www.gutenberg.org/cache/epub/8300/pg8300.txt"; //A bible to start off with. 
 		String text = TextReader.getText(url);
 		System.out.println(text);
 		

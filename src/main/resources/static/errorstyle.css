@@ -1,0 +1,14 @@
+body{
+	background-color: darkgrey;
+}
+
+h1 {
+	font-size: 50px;
+	text-align: center;
+	color: white;
+}
+
+a {
+	font-size: 30px;
+	color: white;
+}
