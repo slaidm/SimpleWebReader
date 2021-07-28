@@ -5,6 +5,12 @@ public class Chapter {
 	private String title;
 	private String text;
 	
+	public Chapter(String title, String text, int order) {
+		this.title = title;
+		this.text = text;
+		this.order = order;
+	}
+	
 	public int getOrder() {
 		return order;
 	}

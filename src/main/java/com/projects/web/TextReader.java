@@ -11,7 +11,8 @@ import java.net.URLConnection;
 /*TODO: Notate, parser, printer*/
 public class TextReader {
 	
-	public static String getText(String website) {
+	public static Book getText(String website) {
+		Book b = new Book();
 		try {
 			URL url = new URL(website);
 			
@@ -26,9 +27,7 @@ public class TextReader {
 	        BufferedReader br = new BufferedReader(new InputStreamReader(is));
 	        
 	        TextParser tp = new TextParser();
-	        String book = tp.parseStream(br);
-	        
-	        System.out.println(book);
+	        b = tp.parseStream(br);
 	        
 			br.close(); 
 			is.close();
@@ -37,12 +36,12 @@ public class TextReader {
 			System.out.print("Bad URL. Cannot parse file.\n");
 			e.printStackTrace();
 		}
-		return "\n\nAll Finished!";
+		return b;
 	}
 	
 	public static void main(String[] args) {
 		String url = "https://www.gutenberg.org/cache/epub/8300/pg8300.txt"; //A bible to start off with. 
-		String text = TextReader.getText(url);
+		String text = TextReader.getText(url).toString();
 		System.out.println(text);
 		
 	}

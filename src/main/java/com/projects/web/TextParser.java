@@ -8,62 +8,72 @@ import java.util.regex.Pattern;
 
 public class TextParser {
 
-	public String parseStream(BufferedReader br) throws IOException {
+	public Book parseStream(BufferedReader br) throws IOException {
 		Book b = new Book();
+		
+		//printLines(br, 200);
+		
 		b.setSitemetadata(getSiteMetadata(br));
 		b.setMetadata(getMetaData(br));
-		b.setTitle(getTitle(br));
-		b.appendMetadata(getMetaData(br));
+		//b.setTitle(getTitle(br));
+		//b.appendMetadata(getMetaData(br));
 		b.setChapters(getChapters(br));
 		
-		return b.toString();
+		return b;
 	}
 	
 	
-	private List<Chapter> getChapters(BufferedReader br) {
-		// TODO Auto-generated method stub
+	private List<Chapter> getChapters(BufferedReader br) throws IOException {
 		List<Chapter> chapters = new LinkedList<>();
+		String line = null;
+		StringBuilder sb = new StringBuilder("");
+		String title = "";
+		int lb = countLineBreaks(br);
+		int index = 0;
+		while((line = br.readLine()) != null && index++ < 12) {
+			for(int i = 0; i<lb; i++) {
+				line = br.readLine();
+			}
+			title = line;
+			for(int i = 0; (line = br.readLine()) != null; i++) {
+				if(line.equals("")){
+					if((lb = countLineBreaks(br)) > 5) {
+						break;
+					} else {
+						sb.append("\n");
+					}
+				} else {
+					sb.append(line+"\n");
+				}
+	
+			}
+			chapters.add(new Chapter(title, sb.toString(), index));
+		}
 		return chapters;
 	}
 
-	private String getTitle(BufferedReader br) throws IOException {
-		String line = null;
-		StringBuilder sb = new StringBuilder("");
-		int lb = countLineBreaks(br);
-		if(lb == 6) {
-			for(int i = 0; i < lb; i++) {
-				line = br.readLine();
-			}
-			while((line = br.readLine())!= null && !line.equals("")) {
-				sb.append(line);
-			}
-		}
-		return sb.toString();
-	}
-
-
 	private MetaData getMetaData(BufferedReader br) throws IOException {
 		StringBuilder sb = new StringBuilder("");
+		List<String> contents = new LinkedList<>();
 		String line = null;
 		int lb = countLineBreaks(br);
-		if (lb == 4) {
-			for(int i = 0; i < lb; i++) {
-				line = br.readLine();
-			}
-			while((line = br.readLine()) != null) {
-				if(line.equals("")) {
-					if(countLineBreaks(br) > 3) {
-						break;
-					}
-				}
-				else {
-					sb.append(line);
-				}
+		while((line = br.readLine()) != null) {
+			sb.append(line + "\n");
+			if(line.toLowerCase().contains("contents")) {
+				break;
 			}
 		}
-		return new MetaData(sb.toString());
+		while((line = br.readLine())!= null) {
+			if(line.equals("")) {
+				if((lb = countLineBreaks(br)) == 5) {
+					break;
+				}
+			} else {
+				contents.add(line);
+			}
+		}
+		return new MetaData(sb.toString(), contents);
 	}
-
 
 	private SiteMetaData getSiteMetadata(BufferedReader br) throws IOException {
 		StringBuilder siteInformation = new StringBuilder("");
@@ -81,21 +91,23 @@ public class TextParser {
 	private int countLineBreaks(BufferedReader br){
 		int count = 1;
 		try {
-			br.mark(20);
+			br.mark(30);
 			String line = null;
 			while((line = br.readLine()) != null && line.equals("")) {
 				count++;
 			}		
 			br.reset();
 		} catch (IOException e) {
-			System.out.println("Failure in countLineBreaks");
-			e.printStackTrace();
+			//System.out.println("Failure in countLineBreaks");
+			//e.printStackTrace();
 		} 
 		return count;
 	}
 	
-
-	public static void main(String[] args) throws IOException {
-
+	private void printLines(BufferedReader br, int num) throws IOException {
+		String line = null;
+		for(int i = 0; i < num && (line=br.readLine()) != null; i++) {
+			System.out.println(line);
+		}
 	}
 }

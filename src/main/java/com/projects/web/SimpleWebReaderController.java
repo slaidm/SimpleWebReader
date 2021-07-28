@@ -39,5 +39,11 @@ public class SimpleWebReaderController {
 	  model.addAttribute("show", list);
 	  return "show";
   }
+  
+  @RequestMapping("/display")
+  public String display(Model model) {
+	  model.addAttribute("book", TextReader.getText("https://www.gutenberg.org/cache/epub/8300/pg8300.txt"));
+	  return "display";
+  }
 
 }
