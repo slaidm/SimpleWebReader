@@ -42,6 +42,7 @@ div.im3 {
 	height: 100px;
 	transform: rotate(-20deg);
 	float: right;
+	left: 50px;
 }
 
 div.im4 {
@@ -49,6 +50,7 @@ div.im4 {
 	height: 100px;
 	transform: rotate(20deg);
 	float: right;
+	left: 50px;
 }
 
 div.footer{

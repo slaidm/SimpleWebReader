@@ -27,25 +27,26 @@ public class TextParser {
 				quotes.add(sb.toString());
 				sb.delete(0, sb.length());
 			} else {
-				//TODO Filter out the Roman numerals
-				sb.append(line);
+				if(!line.matches("^[IXVCL]*\\. .*$")) {
+					line = line.replaceFirst("^(\\d+\\. )", "");
+					sb.append(line + "\n");
+				} else
+					line=br.readLine();
 			}
 		}
 		String font = generateFonts();
 		String color = generateColor();
 		String backgroundColor = generateColor();
-		int fontsize = getRandInt(10, 34);
+		int fontsize = getRandInt(25, 55);
 		
-		//quotes.stream().forEach(System.out::println);
-		
-		b = new Book(title, author, quotes.get(getRandInt(0, quotes.size()-1)), font, color, backgroundColor, fontsize);
+		b = new Book(title, author, quotes.get(getRandInt(0, quotes.size()-2)), font, color, backgroundColor, fontsize);
 		
 		return b;
 	}
 	
 	private String generateFonts() {
 		String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-		int rand = getRandInt(0, fonts.length);
+		int rand = getRandInt(0, fonts.length-1);
 		return fonts[rand];
 	}
 	
@@ -57,10 +58,5 @@ public class TextParser {
 		return Integer.toHexString((int)Math.floor(Math.random()*16777215));
 	}
 	
-	private void printLines(BufferedReader br, int num) throws IOException {
-		String line = null;
-		for(int i = 0; i < num && (line=br.readLine()) != null; i++) {
-			System.out.println(line);
-		}
-	}
+	
 }

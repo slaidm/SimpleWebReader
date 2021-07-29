@@ -1,48 +1,47 @@
 package com.projects.web;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 //TODO
 @Controller
 public class SimpleWebReaderController {
-	
+  Stack<Book> books = new Stack<>();
+  boolean forward = true;
+  
   @RequestMapping("/")
   public String welcome(Model model) {
 	  model.addAttribute("welcome");
 	  return "welcome";
   }
   
-//  @GetMapping("/greeting")
-//  public String greetingForm(Model model) {
-//    model.addAttribute("greeting", new Greeting());
-//    return "greeting";
-//  }
-//
-//  @PostMapping("/greeting")
-//  public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
-//    model.addAttribute("greeting", greeting);
-//    list.add(greeting);
-//    return "result";
-//  }
-//  
-//  @RequestMapping("/show")
-//  public String show(Model model) {
-//	  model.addAttribute("show", list);
-//	  return "show";
-//  }
-  
-  @RequestMapping("/display")
-  public String display(Model model) {
-	  model.addAttribute("book", TextReader.getText("https://www.gutenberg.org/cache/epub/8300/pg8300.txt"));
-	  return "display";
+  @GetMapping("/quote")
+  public String quoteForward(Model model) {
+	Book b = TextReader.getText();
+	forward = true;
+    model.addAttribute("book", b);
+	books.push(b);
+    return "quote";
   }
+  
+  @PostMapping("/quote")
+  public String quoteBackward(Model model) {
+	Book b = null;
+	if(books.size() > 1) {
+		books.pop();
+		forward = false;
+	}
+	b = books.peek();
+    model.addAttribute("book", b);	
+    return "quote";
+  }  
 
 }

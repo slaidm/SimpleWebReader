@@ -11,10 +11,11 @@ import java.net.URLConnection;
 /*TODO: Notate, parser, printer*/
 public class TextReader {
 	
-	public static Book getText(String website) {
+	public static Book getText() {
 		Book b = null;
 		try {
-			URL url = new URL(website);
+			String urlString = "http://classics.mit.edu/Tzu/artwar.1b.txt"; 
+			URL url = new URL(urlString);
 			
 			try {
 				url.toURI();
@@ -38,12 +39,8 @@ public class TextReader {
 		}
 		return b;
 	}
-	
+//	
 	public static void main(String[] args) {
-		String url = "http://classics.mit.edu/Tzu/artwar.1b.txt"; 
-		String text = TextReader.getText(url).toString();
-		System.out.println(text);
-		
+		System.out.println(TextReader.getText().toString());		
 	}
-	
 }
