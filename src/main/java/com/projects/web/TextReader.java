@@ -12,7 +12,7 @@ import java.net.URLConnection;
 public class TextReader {
 	
 	public static Book getText(String website) {
-		Book b = new Book();
+		Book b = null;
 		try {
 			URL url = new URL(website);
 			
@@ -40,7 +40,7 @@ public class TextReader {
 	}
 	
 	public static void main(String[] args) {
-		String url = "https://www.gutenberg.org/cache/epub/8300/pg8300.txt"; //A bible to start off with. 
+		String url = "http://classics.mit.edu/Tzu/artwar.1b.txt"; 
 		String text = TextReader.getText(url).toString();
 		System.out.println(text);
 		

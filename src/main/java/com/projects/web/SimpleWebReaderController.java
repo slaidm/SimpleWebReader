@@ -10,35 +10,34 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+//TODO
 @Controller
 public class SimpleWebReaderController {
 	
-  private List<Greeting> list = new ArrayList<>();
-
   @RequestMapping("/")
   public String welcome(Model model) {
 	  model.addAttribute("welcome");
 	  return "welcome";
   }
   
-  @GetMapping("/greeting")
-  public String greetingForm(Model model) {
-    model.addAttribute("greeting", new Greeting());
-    return "greeting";
-  }
-
-  @PostMapping("/greeting")
-  public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
-    model.addAttribute("greeting", greeting);
-    list.add(greeting);
-    return "result";
-  }
-  
-  @RequestMapping("/show")
-  public String show(Model model) {
-	  model.addAttribute("show", list);
-	  return "show";
-  }
+//  @GetMapping("/greeting")
+//  public String greetingForm(Model model) {
+//    model.addAttribute("greeting", new Greeting());
+//    return "greeting";
+//  }
+//
+//  @PostMapping("/greeting")
+//  public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
+//    model.addAttribute("greeting", greeting);
+//    list.add(greeting);
+//    return "result";
+//  }
+//  
+//  @RequestMapping("/show")
+//  public String show(Model model) {
+//	  model.addAttribute("show", list);
+//	  return "show";
+//  }
   
   @RequestMapping("/display")
   public String display(Model model) {

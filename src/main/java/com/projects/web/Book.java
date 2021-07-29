@@ -6,54 +6,20 @@ import java.util.List;
 public class Book {
 	private String title = "";
 	private String author = "";
-	private SiteMetaData sitemetadata = new SiteMetaData();
-	private MetaData metadata = new MetaData();
-	private List<Chapter> chapters = new LinkedList<>();
+	private String quote = "";
+	private String font = "";
+	private String fontcolor = "";
+	private String backgroundcolor = "";
+	private int fontsize;
 	
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
+	public Book(String title, String author, String quote, String font, String fontcolor, String backgroundcolor, int fontsize) {
 		this.title = title;
-	}
-	public String getAuthor() {
-		return author;
-	}
-	public void setAuthor(String author) {
 		this.author = author;
-	}
-	public SiteMetaData getSitemetadata() {
-		return sitemetadata;
-	}
-	public void setSitemetadata(SiteMetaData sitemetadata) {
-		this.sitemetadata = sitemetadata;
-	}
-	public MetaData getMetadata() {
-		return metadata;
-	}
-	public void setMetadata(MetaData metadata) {
-		this.metadata = metadata;
-	}
-	public List<Chapter> getChapters() {
-		return chapters;
-	}
-	public void setChapters(List<Chapter> chapters) {
-		this.chapters.addAll(chapters);
-	}
-	
-	public String toString() {
-		StringBuilder sb = new StringBuilder("");
-		sb.append(sitemetadata.toString()+"\n");
-		sb.append(metadata.toString() + "\n");
-		sb.append(title + "\n");
-		sb.append(author + "\n");
-		for(Chapter c : chapters) {
-			sb.append(c.toString());
-		}
-		return sb.toString();
-	}
-	public void appendMetadata(MetaData metaData2) {
-		this.metadata = new MetaData(this.toString() + metaData2.toString());
+		this.quote = quote;
+		this.font = font;
+		this.fontcolor = fontcolor;
+		this.backgroundcolor = backgroundcolor;
+		this.fontsize = fontsize;
 	}
 	
 }
